@@ -1,4 +1,6 @@
-INSERT INTO product (name, desc, brand, price, category, release_date, available, quantity)
+-- h2 automatically detects this file and executes it on startup
+-- based on model\Product.java variable names, if it's camelCase, then use camel_case in SQL
+INSERT INTO product (name, description, brand, price, category, release_date, product_available, stock_quantity)
 VALUES ('Tata Nexon', 'A compact SUV with excellent safety features and performance.', 'Tata Motors', 750000.00, 'Cars',
         '2024-01-15', true, 50),
        ('Maruti Suzuki Swift', 'A popular hatchback known for its fuel efficiency and reliability.', 'Maruti Suzuki',
