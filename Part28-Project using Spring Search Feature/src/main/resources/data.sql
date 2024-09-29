@@ -1,5 +1,5 @@
 -- h2 automatically detects this file and executes it on startup
--- based on model\Product.java variable names, if it's camelCase, then use camel_case in SQL
+-- based on model\Product.java variable names, if hibernate sees it's camelCase, then use camel_case in SQL, unless it's specified in the @Column annotation
 INSERT INTO product (name, description, brand, price, category, release_date, product_available, stock_quantity)
 VALUES ('Tata Nexon', 'A compact SUV with excellent safety features and performance.', 'Tata Motors', 750000.00, 'Cars',
         '2024-01-15', true, 50),

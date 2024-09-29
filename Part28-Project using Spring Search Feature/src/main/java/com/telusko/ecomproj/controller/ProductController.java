@@ -38,6 +38,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
+//    if it didn't have an image, it would be just @RequestBody Product product
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile) {
         try {
             Product product1 = service.addProduct(product, imageFile);

@@ -8,11 +8,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ecom-proj" />
+        <module name="Part29-SpringSecEx" />
+        <module name="SpringOauth2Demo" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Part29-SpringSecEx" options="-parameters" />
+      <module name="SpringOauth2Demo" options="-parameters" />
       <module name="ecom-proj" options="-parameters" />
     </option>
   </component>

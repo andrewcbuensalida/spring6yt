@@ -2,5 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Part28-Project using Spring Search Feature/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Part38-Spring Security 6 Validating JWT Token/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Part38-Spring Security 6 Validating JWT Token/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Part39- Spring Security 6 Google and Github Login using OAuth2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Part39- Spring Security 6 Google and Github Login using OAuth2/src/main/resources" charset="UTF-8" />
   </component>
 </project>
