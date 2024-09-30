@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Part28-Project using Spring Search Feature/pom.xml" />
+        <option value="$PROJECT_DIR$/Part39- Spring Security 6 Google and Github Login using OAuth2/pom.xml" />
+        <option value="$PROJECT_DIR$/Part38-Spring Security 6 Validating JWT Token/pom.xml" />
       </list>
     </option>
   </component>

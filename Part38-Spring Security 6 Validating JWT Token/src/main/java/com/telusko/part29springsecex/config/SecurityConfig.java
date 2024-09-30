@@ -29,10 +29,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+//        customizer.disable() is used to disable csrf token so you don't have to attach it in the headers in Postman.
         return http.csrf(customizer -> customizer.disable()).
                 authorizeHttpRequests(request -> request
                         .requestMatchers("login", "register").permitAll()
                         .anyRequest().authenticated()).
+//                httpBasic is used to authenticate the user from Postman. In Postman, we have to select Basic Auth and enter the username and password. For the browser it would be formLogin, but can't do formLogin because when you submit the login, it'll be a new request, which will be another session token, so have to do sessionManagement below. This will create a login popup.
                 httpBasic(Customizer.withDefaults()).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

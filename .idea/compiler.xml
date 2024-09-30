@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ecom-proj" />
-        <module name="Part29-SpringSecEx" />
         <module name="SpringOauth2Demo" />
+        <module name="Part29-SpringSecEx" />
       </profile>
     </annotationProcessing>
   </component>
