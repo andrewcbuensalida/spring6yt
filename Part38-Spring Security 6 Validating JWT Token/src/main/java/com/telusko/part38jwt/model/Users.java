@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex.model;
+package com.telusko.part38jwt.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

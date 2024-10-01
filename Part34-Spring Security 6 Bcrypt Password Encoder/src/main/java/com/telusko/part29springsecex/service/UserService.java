@@ -1,7 +1,7 @@
-package com.telusko.part29springsecex.service;
+package com.telusko.part38jwt.service;
 
-import com.telusko.part29springsecex.model.Users;
-import com.telusko.part29springsecex.repo.UserRepo;
+import com.telusko.part38jwt.model.Users;
+import com.telusko.part38jwt.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

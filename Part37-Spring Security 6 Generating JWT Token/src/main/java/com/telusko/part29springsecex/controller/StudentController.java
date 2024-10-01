@@ -1,6 +1,6 @@
-package com.telusko.part29springsecex.controller;
+package com.telusko.part38jwt.controller;
 
-import com.telusko.part29springsecex.model.Student;
+import com.telusko.part38jwt.model.Student;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex.service;
+package com.telusko.part38jwt.service;
 
 import org.springframework.stereotype.Service;
 

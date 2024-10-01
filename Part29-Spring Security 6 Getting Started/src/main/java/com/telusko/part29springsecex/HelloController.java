@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex;
+package com.telusko.part38jwt;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

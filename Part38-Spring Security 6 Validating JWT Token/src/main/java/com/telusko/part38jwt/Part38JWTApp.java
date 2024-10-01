@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex;
+package com.telusko.part38jwt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex.config;
+package com.telusko.part38jwt.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

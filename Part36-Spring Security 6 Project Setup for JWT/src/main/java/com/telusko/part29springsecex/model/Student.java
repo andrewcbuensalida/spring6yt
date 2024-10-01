@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex.model;
+package com.telusko.part38jwt.model;
 
 public class Student {
     private int id;

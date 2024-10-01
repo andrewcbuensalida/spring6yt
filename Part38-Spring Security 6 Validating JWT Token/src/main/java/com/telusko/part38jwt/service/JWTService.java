@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex.service;
+package com.telusko.part38jwt.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +23,7 @@ public class JWTService {
     private String secretkey = "";
 
     public JWTService() {
-
+// a string is not secure enough for a secret key, therefore we generate a secret key
         try {
             KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
             SecretKey sk = keyGen.generateKey();
@@ -49,6 +49,7 @@ public class JWTService {
 
     private SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretkey);
+//        Keys.hmacShaKeyFor converts byte[] to SecretKey
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

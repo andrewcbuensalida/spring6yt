@@ -1,4 +1,4 @@
-package com.telusko.part29springsecex.controller;
+package com.telusko.part38jwt.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
-package com.telusko.part29springsecex.controller;
+package com.telusko.part38jwt.controller;
 
-import com.telusko.part29springsecex.model.Users;
-import com.telusko.part29springsecex.service.UserService;
+import com.telusko.part38jwt.model.Users;
+import com.telusko.part38jwt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,7 +1,7 @@
-package com.telusko.part29springsecex.config;
+package com.telusko.part38jwt.config;
 
-import com.telusko.part29springsecex.service.JWTService;
-import com.telusko.part29springsecex.service.MyUserDetailsService;
+import com.telusko.part38jwt.service.JWTService;
+import com.telusko.part38jwt.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     ApplicationContext context;
 
+//    this checks the jwt from the headers of the requests that require authentication
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 //  Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWxsIiwiaWF0IjoxNzIzMTgzNzExLCJleHAiOjE3MjMxODM4MTl9.5nf7dRzKRiuGurN2B9dHh_M5xiu73ZzWPr6rbhOTTHs
