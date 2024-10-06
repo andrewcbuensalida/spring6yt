@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.telusko</groupId>
-    <artifactId>ecom-proj</artifactId>
+    <artifactId>Part28-telusko-ecomm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ecom-proj</name>
-    <description>ecom-proj</description>
+    <name>Part28-telusko-ecomm</name>
+    <description>Part28-telusko-ecomm</description>
     <url/>
     <licenses>
         <license/>
