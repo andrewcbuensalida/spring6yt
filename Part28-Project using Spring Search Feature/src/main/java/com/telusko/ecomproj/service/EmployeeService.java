@@ -7,17 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.lang.reflect.Parameter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.Duration;
 
 import com.telusko.ecomproj.model.Album;
 import com.telusko.ecomproj.model.Employee;
 import com.telusko.ecomproj.model.EmployeeWithAlbum;
 
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Service
 public class EmployeeService {
@@ -40,14 +38,14 @@ public class EmployeeService {
     // return Arrays.asList(employees);
 
     // alternative to Employee[] above. Since we can't do List<Employee>.class, we
-    // use ParameterizedTypeReference
+    // use ParameterizedTypeReference so we don't have to cast it with Arrays.asList
     ParameterizedTypeReference<List<Employee>> parameterizedTypeReference = new ParameterizedTypeReference<List<Employee>>() {
     };
     return restTemplate.exchange(url, HttpMethod.GET, null, parameterizedTypeReference).getBody();
 
   }
 
-  // Sync version
+  // Sync webClient version just has block() at the end
   public List<Employee> getAllEmployeesWebClient() {
     return webClient.get()
         .uri(url)
@@ -57,31 +55,53 @@ public class EmployeeService {
         .block();
   }
 
-  // Async version, making two calls. The first call is to get the albums, and the
+  // Async webClient version, making two calls. The first call is to get the albums, and the
   // second call is to get the employees. Then nest the albums into the employees.
   public List<EmployeeWithAlbum> getAllEmployeesWithAlbums() {
-    ParameterizedTypeReference<List<Album>> parameterizedTypeReferenceAlbum = new ParameterizedTypeReference<List<Album>>() {
-    };
-    Mono<List<Album>> albums = webClient.get()
+    // // could do Mono, but Mono is usually just for getting one object
+    // ParameterizedTypeReference<List<Album>> parameterizedTypeReferenceAlbum = new
+    // ParameterizedTypeReference<List<Album>>() {
+    // };
+    // Mono<List<Album>> albums = webClient.get()
+    // .uri("https://jsonplaceholder.typicode.com/albums")
+    // .retrieve()
+    // .bodyToMono(parameterizedTypeReferenceAlbum);
+
+    // instead of Mono, we could use Flux
+    Flux<Album> albums = webClient.get()
         .uri("https://jsonplaceholder.typicode.com/albums")
         .retrieve()
-        .bodyToMono(parameterizedTypeReferenceAlbum);
+        .bodyToFlux(Album.class)// do bodyToMono if getting just one object
+        .delaySequence(Duration.ofSeconds(5)); // Adding delay of 5 second just to see the benefit of async
 
-    ParameterizedTypeReference<List<Employee>> parameterizedTypeReferenceEmployee = new ParameterizedTypeReference<List<Employee>>() {
-    };
-    Mono<List<Employee>> employees = webClient.get()
+    Flux<Employee> employees = webClient.get()
         .uri(url)
         .retrieve()
-        .bodyToMono(parameterizedTypeReferenceEmployee);
+        .bodyToFlux(Employee.class)// do bodyToMono if getting just one object
+        .delaySequence(Duration.ofSeconds(5)); // Adding delay of 5 second just to see the benefit of async
 
-    List<EmployeeWithAlbum> employeesWithAlbums = employees.zipWith(albums, (empList, albList) -> {
-      return empList.stream().map(emp -> {
-        List<Album> empAlbums = albList.stream()
-            .filter(album -> album.getUserId() == emp.getId())
-            .collect(Collectors.toList());
-        return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(), emp.getEmail(), empAlbums);
-      }).collect(Collectors.toList());
-    }).block();
+    // This is if we did the Mono method. Combining albums to employees
+    // List<EmployeeWithAlbum> employeesWithAlbums = employees.zipWith(albums,
+    // (empList, albList) -> {
+    // return empList.stream().map(emp -> {
+    // List<Album> empAlbums = albList.stream()
+    // .filter(album -> album.getUserId() == emp.getId())
+    // .collect(Collectors.toList());
+    // return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(),
+    // emp.getEmail(), empAlbums);
+    // }).collect(Collectors.toList());
+    // }).block();
+
+    // Combining albums to employees using Flux
+    List<EmployeeWithAlbum> employeesWithAlbums = employees.collectList()
+        .zipWith(albums.collectList(), (empList, albList) -> {
+          return empList.stream().map(emp -> {
+            List<Album> empAlbums = albList.stream()
+                .filter(album -> album.getUserId() == emp.getId())
+                .collect(Collectors.toList());
+            return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(), emp.getEmail(), empAlbums);
+          }).collect(Collectors.toList());
+        }).block();
 
     return employeesWithAlbums;
   }
