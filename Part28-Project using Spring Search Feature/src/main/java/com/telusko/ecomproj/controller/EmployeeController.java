@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +24,15 @@ public class EmployeeController {
   @GetMapping("/employee-resttemplate")
   public ResponseEntity<List<Employee>> getAllEmployeesRestTemplate() {
     return new ResponseEntity<>(service.getAllEmployeesRestTemplate(), HttpStatus.OK);
+  }
+
+  @PostMapping("/employee-resttemplate")
+  public ResponseEntity<?> createEmployeeRestTemplate(@RequestBody Employee employee) {
+    try {
+      Employee createdEmployee = service.createEmployeeRestTemplate(employee);
+      return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

@@ -10,15 +10,19 @@ import com.telusko.ecomproj.model.Employee;
 public class EmployeeService {
 
   private final RestTemplate restTemplate;
+  private final String url = "https://jsonplaceholder.typicode.com/users";
 
   public EmployeeService(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
 
   public List<Employee> getAllEmployeesRestTemplate() {
-    String url = "https://jsonplaceholder.typicode.com/users";
     Employee[] employees = restTemplate.getForObject(url, Employee[].class);
     return Arrays.asList(employees);
+  }
+
+  public Employee createEmployeeRestTemplate(Employee employee) {
+    return restTemplate.postForObject(url, employee, Employee.class);
   }
 
 }
