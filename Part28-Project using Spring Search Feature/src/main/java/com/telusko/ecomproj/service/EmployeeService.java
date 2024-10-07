@@ -1,13 +1,20 @@
 package com.telusko.ecomproj.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+
 import java.util.Arrays;
 import java.util.List;
 import com.telusko.ecomproj.model.Employee;
 
 @Service
 public class EmployeeService {
+
+  @Autowired
+  private WebClient webClient;
 
   private final RestTemplate restTemplate;
   private final String url = "https://jsonplaceholder.typicode.com/users";
@@ -17,12 +24,23 @@ public class EmployeeService {
   }
 
   public List<Employee> getAllEmployeesRestTemplate() {
-    Employee[] employees = restTemplate.getForObject(url, Employee[].class);
+    // try catch could be in the service layer (more granular) or controller
+    // layer(more simple) or repository layer(for database operations)
+    Employee[] employees = restTemplate.exchange(url, HttpMethod.GET, null, Employee[].class).getBody();
     return Arrays.asList(employees);
   }
 
+  public List<Employee> getAllEmployeesWebClient() {
+    return webClient.get()
+        .uri(url)
+        .retrieve()
+        .bodyToFlux(Employee.class)
+        .collectList()
+        .block();
+  }
+
   public Employee createEmployeeRestTemplate(Employee employee) {
-    return restTemplate.postForObject(url, employee, Employee.class);
+    return restTemplate.postForObject(url, employee, Employee.class); // could use postForObject instead of exchange
   }
 
 }
