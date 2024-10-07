@@ -21,6 +21,7 @@ public class ProductRepoTest {
   public void setUp() {
     productRepo.deleteAll();
 
+    // If you annotate the Product model with Lombok's @Builder, you create a product with this instead: Product.builder().name("Apple iPhone").description("Latest model").brand("Apple").category("Electronics").build();
     Product product1 = new Product();
     product1.setName("Apple iPhone");
     product1.setDescription("Latest model");
