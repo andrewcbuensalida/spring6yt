@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.telusko.ecomproj.model.Employee;
+import com.telusko.ecomproj.model.EmployeeWithAlbum;
 import com.telusko.ecomproj.service.EmployeeService;
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class EmployeeController {
   @GetMapping("/employee-webclient")
   public ResponseEntity<List<Employee>> getAllEmployeesWebClient() {
     return new ResponseEntity<>(service.getAllEmployeesWebClient(), HttpStatus.OK);
+  }
+
+  @GetMapping("/employees-with-albums")
+  public ResponseEntity<List<EmployeeWithAlbum>> getAllEmployeesWithAlbums() {
+    return new ResponseEntity<>(service.getAllEmployeesWithAlbums(), HttpStatus.OK);
   }
   
   @PostMapping("/employee-resttemplate")
