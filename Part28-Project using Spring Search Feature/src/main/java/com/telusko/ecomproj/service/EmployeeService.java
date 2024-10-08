@@ -11,11 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.time.Duration;
 
+import com.telusko.ecomproj.exceptions.EmployeeNotFoundException;
 import com.telusko.ecomproj.model.Album;
 import com.telusko.ecomproj.model.Employee;
 import com.telusko.ecomproj.model.EmployeeWithAlbum;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class EmployeeService {
@@ -34,7 +36,9 @@ public class EmployeeService {
   public List<Employee> getAllEmployeesRestTemplate() {
     // // try catch could be in the service layer (more granular) or controller
     // // layer(more simple) or repository layer(for database operations)
-    // // could have custom exceptions with @ControllerAdvice and @ExceptionHandler like in pokemon-review-springboot project
+    // // could have custom exceptions with @ControllerAdvice and @ExceptionHandler
+    // like in pokemon-review-springboot project
+    // // or could throw a ResponseStatusException
 
     // Employee[] employees = restTemplate.exchange(url, HttpMethod.GET, null,
     // Employee[].class).getBody();
@@ -108,6 +112,19 @@ public class EmployeeService {
         }).block();
 
     return employeesWithAlbums;
+  }
+
+  public Employee getEmployeeById(Long id) {
+    try {
+      return webClient.get()
+          .uri(url + "/" + id)
+          .retrieve()
+          .bodyToMono(Employee.class)
+          .block();
+    } catch (Exception e) {
+      throw new EmployeeNotFoundException("!!!!Employee not found with id: " + id); // could do the throw here, or in the controller with service.getEmployeeById(id).orElseThrow(() -> new EmployeeNotFoundException("Employee not found with id: " + id)); but have to return an Optional<Employee> in here
+    }
+
   }
 
   public Employee createEmployeeRestTemplate(Employee employee) {
