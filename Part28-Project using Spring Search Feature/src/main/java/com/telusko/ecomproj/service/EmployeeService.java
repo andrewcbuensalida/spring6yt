@@ -30,9 +30,12 @@ public class EmployeeService {
     this.restTemplate = restTemplate;
   }
 
+  // could also return Optional<List<Employee>>
   public List<Employee> getAllEmployeesRestTemplate() {
     // // try catch could be in the service layer (more granular) or controller
     // // layer(more simple) or repository layer(for database operations)
+    // // could have custom exceptions with @ControllerAdvice and @ExceptionHandler like in pokemon-review-springboot project
+
     // Employee[] employees = restTemplate.exchange(url, HttpMethod.GET, null,
     // Employee[].class).getBody();
     // return Arrays.asList(employees);
@@ -55,7 +58,8 @@ public class EmployeeService {
         .block();
   }
 
-  // Async webClient version, making two calls. The first call is to get the albums, and the
+  // Async webClient version, making two calls. The first call is to get the
+  // albums, and the
   // second call is to get the employees. Then nest the albums into the employees.
   public List<EmployeeWithAlbum> getAllEmployeesWithAlbums() {
     // // could do Mono, but Mono is usually just for getting one object
@@ -66,6 +70,18 @@ public class EmployeeService {
     // .uri("https://jsonplaceholder.typicode.com/albums")
     // .retrieve()
     // .bodyToMono(parameterizedTypeReferenceAlbum);
+
+    // // This is if we did the Mono method. Combining albums to employees
+    // List<EmployeeWithAlbum> employeesWithAlbums = employees.zipWith(albums,
+    // (empList, albList) -> {
+    // return empList.stream().map(emp -> {
+    // List<Album> empAlbums = albList.stream()
+    // .filter(album -> album.getUserId() == emp.getId())
+    // .collect(Collectors.toList());
+    // return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(),
+    // emp.getEmail(), empAlbums);
+    // }).collect(Collectors.toList());
+    // }).block();
 
     // instead of Mono, we could use Flux
     Flux<Album> albums = webClient.get()
@@ -79,18 +95,6 @@ public class EmployeeService {
         .retrieve()
         .bodyToFlux(Employee.class)// do bodyToMono if getting just one object
         .delaySequence(Duration.ofSeconds(5)); // Adding delay of 5 second just to see the benefit of async
-
-    // This is if we did the Mono method. Combining albums to employees
-    // List<EmployeeWithAlbum> employeesWithAlbums = employees.zipWith(albums,
-    // (empList, albList) -> {
-    // return empList.stream().map(emp -> {
-    // List<Album> empAlbums = albList.stream()
-    // .filter(album -> album.getUserId() == emp.getId())
-    // .collect(Collectors.toList());
-    // return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(),
-    // emp.getEmail(), empAlbums);
-    // }).collect(Collectors.toList());
-    // }).block();
 
     // Combining albums to employees using Flux
     List<EmployeeWithAlbum> employeesWithAlbums = employees.collectList()
