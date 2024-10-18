@@ -1,4 +1,5 @@
 # spring6yt
+https://lucid.app/lucidchart/5bb60b52-5ab7-4901-a2d8-84ab6df0d0e8/edit?viewport_loc=-10%2C-10%2C1707%2C871%2C0_0&invitationId=inv_5ad682a1-3010-4a58-9d15-1c4e18e92864
 ## The front-end for this is ecom-frontend-5.
 ## Part 28 is the crud api.
 unit tests https://www.youtube.com/playlist?list=PL82C6-O4XrHcg8sNwpoDDhcxUCbFy855E
@@ -20,9 +21,7 @@ TODO figure out how to logout after logging in. I tried clearing the cache and h
 Have to setup GitHub and google oauth secrets first.
 
 ## TODOS
-TODO deploy to aws lambda using sam cli. https://www.youtube.com/watch?v=A1rYiHTy9Lg&t=153s
 TODO deploy to fargate https://www.youtube.com/watch?v=lnnNshOlXjo
-TODO use RestTemplate, OpenFeign, and WebClient to make requests to other services. 
 
 ##
 When you add a dependency to pom.xml, it automatically downloads. You can see the downloaded dependencies in vs code, explorer, on the bottom there's a maven section, expand the correct Part, Dependencies.
@@ -43,3 +42,16 @@ The error when the jdk version in the app is 17 but the maven compiler version i
 `[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project api: Fatal error compiling: java.lang.NoSuchFieldError: Class com.sun.tools.javac.tree.JCTree$JCImport does not have member field 'com.sun.tools.javac.tree.JCTree qualid' -> [Help 1]`
 The error when the jdk version in the app is 21 but the maven compiler version is 17 is something like:
 `version 21 not compatible`
+
+
+## To deploy to aws elastic beanstalk
+https://www.geeksforgeeks.org/deploy-a-spring-boot-application-with-aws/
+
+- Should have / route for EB health checks OR modify the health check route in EB
+- VS code > Explorer > Maven > Part28-telusko-ecomm > Lifecycle > package
+This creates the jar file in target folder.
+- Open AWS Console and Create and Elastic BeanStalk Application
+upload the jar.
+Public ip address activated and select subnets, just to make it easy. Probably need to tighten this in production.
+Environment variables, add
+SERVER_PORT 5000
