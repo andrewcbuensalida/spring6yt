@@ -7,6 +7,7 @@ unit tests https://www.youtube.com/playlist?list=PL82C6-O4XrHcg8sNwpoDDhcxUCbFy8
 When testing, model and repo files aren't included in the coverage. Maybe because they are not annotated. They are included in the tests though.
 
 ## Part 38 is jwt with postgres.
+https://lucid.app/lucidchart/72aadf0a-acc8-4e2b-a380-f2f70fcd6123/edit?invitationId=inv_8d5a82c4-45e4-4ad4-8361-beb6202251a0
 First you need to setup the database and table in pgadmin. Then you have to do a POST request to http://localhost:8080/register in Postman to register a user. The body is something like:
 ```
 {

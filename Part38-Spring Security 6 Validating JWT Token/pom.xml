@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.telusko</groupId>
-    <artifactId>Part29-SpringSecEx</artifactId>
+    <artifactId>part38jwt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Part29-SpringSecEx</name>
-    <description>Part29-SpringSecEx</description>
+    <name>part38jwt</name>
+    <description>part38jwt</description>
     <url/>
     <licenses>
         <license/>
