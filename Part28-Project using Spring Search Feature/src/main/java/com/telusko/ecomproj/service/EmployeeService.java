@@ -75,17 +75,6 @@ public class EmployeeService {
     // .retrieve()
     // .bodyToMono(parameterizedTypeReferenceAlbum);
 
-    // // This is if we did the Mono method. Combining albums to employees
-    // List<EmployeeWithAlbum> employeesWithAlbums = employees.zipWith(albums,
-    // (empList, albList) -> {
-    // return empList.stream().map(emp -> {
-    // List<Album> empAlbums = albList.stream()
-    // .filter(album -> album.getUserId() == emp.getId())
-    // .collect(Collectors.toList());
-    // return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(),
-    // emp.getEmail(), empAlbums);
-    // }).collect(Collectors.toList());
-    // }).block();
 
     // instead of Mono, we could use Flux
     Flux<Album> albums = webClient.get()
@@ -99,6 +88,18 @@ public class EmployeeService {
         .retrieve()
         .bodyToFlux(Employee.class)// do bodyToMono if getting just one object
         .delaySequence(Duration.ofSeconds(5)); // Adding delay of 5 second just to see the benefit of async
+
+    // // This is if we did the Mono method. Combining albums to employees
+    // List<EmployeeWithAlbum> employeesWithAlbums = employees.zipWith(albums,
+    // (empList, albList) -> {
+    // return empList.stream().map(emp -> {
+    // List<Album> empAlbums = albList.stream()
+    // .filter(album -> album.getUserId() == emp.getId())
+    // .collect(Collectors.toList());
+    // return new EmployeeWithAlbum(emp.getId(), emp.getName(), emp.getUsername(),
+    // emp.getEmail(), empAlbums);
+    // }).collect(Collectors.toList());
+    // }).block();
 
     // Combining albums to employees using Flux
     List<EmployeeWithAlbum> employeesWithAlbums = employees.collectList()
