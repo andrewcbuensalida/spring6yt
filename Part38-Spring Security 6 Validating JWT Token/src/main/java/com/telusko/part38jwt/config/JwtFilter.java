@@ -16,38 +16,44 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JWTService jwtService;
+  @Autowired
+  private JWTService jwtService;
 
-    @Autowired
-    ApplicationContext context;
+  @Autowired
+  ApplicationContext context;
 
-//    this checks the jwt from the headers of the requests that require authentication
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//  Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWxsIiwiaWF0IjoxNzIzMTgzNzExLCJleHAiOjE3MjMxODM4MTl9.5nf7dRzKRiuGurN2B9dHh_M5xiu73ZzWPr6rbhOTTHs
-        String authHeader = request.getHeader("Authorization");
-        String token = null;
-        String username = null;
+  // this checks the jwt from the headers of the requests that require
+  // authentication
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
+    // Bearer
+    // eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWxsIiwiaWF0IjoxNzIzMTgzNzExLCJleHAiOjE3MjMxODM4MTl9.5nf7dRzKRiuGurN2B9dHh_M5xiu73ZzWPr6rbhOTTHs
+    String authHeader = request.getHeader("Authorization");
+    String token = null;
+    String username = null;
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            username = jwtService.extractUserName(token);
-        }
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = context.getBean(MyUserDetailsService.class).loadUserByUsername(username);
-            if (jwtService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource()
-                        .buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
-        }
-
-        filterChain.doFilter(request, response);
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      token = authHeader.substring(7);
+      username = jwtService.extractUserName(token);
     }
+
+    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+      UserDetails userDetails = context.getBean(MyUserDetailsService.class).loadUserByUsername(username);
+      if (jwtService.validateToken(token, userDetails)) {
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+            userDetails.getAuthorities());
+        authToken.setDetails(new WebAuthenticationDetailsSource()
+            .buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+      }
+    }
+    // This goes to UsernamePasswordAuthenticationFilter because it was setup in
+    // securityFilterChain
+    filterChain.doFilter(request, response);
+  }
 }

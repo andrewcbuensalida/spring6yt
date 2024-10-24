@@ -12,19 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-//    UserRepo is the interface in the repo folder. It extends JpaRepository.
-    @Autowired
-    private UserRepo userRepo;
+  // UserRepo is the interface in the repo folder. It extends JpaRepository.
+  @Autowired
+  private UserRepo userRepo;
 
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepo.findByUsername(username);
-        if (user == null) {
-            System.out.println("User Not Found");
-            throw new UsernameNotFoundException("user not found");
-        }
-        
-        return new UserPrincipal(user);
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    Users user = userRepo.findByUsername(username);
+    if (user == null) {
+      System.out.println("User Not Found");
+      throw new UsernameNotFoundException("user not found");
     }
+
+    return new UserPrincipal(user);
+  }
 }

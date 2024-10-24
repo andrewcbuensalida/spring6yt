@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepo extends JpaRepository<Users, Integer> {
 
-//    since the name of the method is findByUsername, Spring Data JPA will automatically generate the query for us
-    Users findByUsername(String username);
+  // since the name of the method is findByUsername, Spring Data JPA will
+  // automatically generate the query for us
+  Users findByUsername(String username);
 }
