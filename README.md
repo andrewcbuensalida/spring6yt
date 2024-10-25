@@ -6,6 +6,15 @@ https://lucid.app/lucidchart/5bb60b52-5ab7-4901-a2d8-84ab6df0d0e8/edit?viewport_
 unit tests https://www.youtube.com/playlist?list=PL82C6-O4XrHcg8sNwpoDDhcxUCbFy855E
 When testing, model and repo files aren't included in the coverage. Maybe because they are not annotated. They are included in the tests though.
 
+## swagger
+just add in pom.xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.3.0</version>
+</dependency>
+and go to http://localhost:8080/swagger-ui/index.html
+
 ## Part 38 is jwt with postgres.
 https://lucid.app/lucidchart/72aadf0a-acc8-4e2b-a380-f2f70fcd6123/edit?invitationId=inv_8d5a82c4-45e4-4ad4-8361-beb6202251a0
 First you need to setup the database and table in pgadmin. Then you have to do a POST request to http://localhost:8080/register in Postman to register a user. The body is something like:
