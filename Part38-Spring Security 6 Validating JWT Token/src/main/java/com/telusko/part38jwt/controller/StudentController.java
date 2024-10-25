@@ -20,9 +20,9 @@ public class StudentController {
           new Student(2, "Kiran", 65)));
 
   @GetMapping("/students")
-  public List<Student> getStudents(HttpServletRequest request ) {
+  public List<Student> getStudents(HttpServletRequest request) {
     return students;
-  
+
   }
 
   @GetMapping("/csrf-token")

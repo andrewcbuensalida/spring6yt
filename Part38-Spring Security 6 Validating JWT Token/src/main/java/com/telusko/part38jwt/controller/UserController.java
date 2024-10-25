@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserService service;
+  @Autowired
+  private UserService service;
 
-    @PostMapping("/register")
-    public Users register(@RequestBody Users user) {
-        return service.register(user);
+  @PostMapping("/register")
+  public Users register(@RequestBody Users user) {
+    return service.register(user);
 
-    }
+  }
 
-    // this route is useless
-    @PostMapping("/login")
-    public String login(@RequestBody Users user) {
-        return service.verify(user);
-    }
+  // this route is useless
+  @PostMapping("/login")
+  public String login(@RequestBody Users user) {
+    return service.verify(user);
+  }
 }
