@@ -13,7 +13,7 @@ public class SpringOauth2DemoApplication {
 	@Autowired
 	private Environment environ;
 
-//	method 2 to get the value from application.properties
+//	method 2 to get the value from application.properties. This is recommended instead of method 1 because of testaibility
 	@Value("${GOOGLE_CLIENT_ID_TEST}")
 	private String googleClientId;
 	public static void main(String[] args) {
