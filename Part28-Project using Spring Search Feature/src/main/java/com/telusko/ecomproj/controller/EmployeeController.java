@@ -19,7 +19,8 @@ import java.util.List;
 
 @RequestMapping("/api")
 @CrossOrigin
-@RestController
+@RestController // This annotation is used to create RESTful web services using Spring MVC.
+  // It combines @Controller and @ResponseBody, which means that the class is a controller and the return values of its methods will be serialized to JSON and sent in the HTTP response body.
 public class EmployeeController {
   @Autowired
   private EmployeeService service;

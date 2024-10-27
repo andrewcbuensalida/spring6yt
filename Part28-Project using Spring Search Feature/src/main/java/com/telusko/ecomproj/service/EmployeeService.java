@@ -28,6 +28,7 @@ public class EmployeeService {
   private final RestTemplate restTemplate;
   private final String url = "https://jsonplaceholder.typicode.com/users";
 
+  // didn't use @Autowired here because if there's only 1 constructor, it automatically injects
   public EmployeeService(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
