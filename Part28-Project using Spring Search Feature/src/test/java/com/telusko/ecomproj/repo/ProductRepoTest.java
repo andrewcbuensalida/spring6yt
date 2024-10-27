@@ -1,4 +1,5 @@
 package com.telusko.ecomproj.repo;
+
 import com.telusko.ecomproj.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -21,7 +21,10 @@ public class ProductRepoTest {
   public void setUp() {
     productRepo.deleteAll();
 
-    // If you annotate the Product model with Lombok's @Builder, you create a product with this instead: Product.builder().name("Apple iPhone").description("Latest model").brand("Apple").category("Electronics").build();
+    // If you annotate the Product model with Lombok's @Builder, you create a
+    // product with this instead: Product.builder().name("Apple
+    // iPhone").description("Latest
+    // model").brand("Apple").category("Electronics").build();
     Product product1 = new Product();
     product1.setName("Apple iPhone");
     product1.setDescription("Latest model");

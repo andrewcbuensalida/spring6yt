@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+// this intercepts exceptions thrown by the controllers
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
