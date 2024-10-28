@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String greet() {
         return "Welcome to Telusko, telusko.com";
+    }
+    @GetMapping("/")
+    public String home() {
+        return "Home page";
     }
 }

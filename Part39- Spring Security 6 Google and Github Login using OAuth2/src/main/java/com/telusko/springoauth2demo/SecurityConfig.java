@@ -11,11 +11,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity // So it won't do the default security
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .oauth2Login(Customizer.withDefaults());
-        return http.build();
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.authorizeHttpRequests(auth -> auth.requestMatchers("/","/application/default",
+        "/ecom-proj/default").permitAll() // this makes these endpoints accessible without authentication. These endpoints are for cloud config
+        .anyRequest().authenticated())
+        .oauth2Login(Customizer.withDefaults());
+    return http.build();
 
-    }
+  }
 }
