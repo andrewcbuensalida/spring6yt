@@ -13,9 +13,10 @@ public class SpringOauth2DemoApplication {
 	@Autowired
 	private Environment environ;
 
-//	method 2 to get the value from application.properties. This is recommended instead of method 1 because of testaibility
+//	method 2 to get the value from application.properties. This is recommended instead of method 1 because of testability. Can type cast it into a list or a map if it's like that in the file.
 	@Value("${GOOGLE_CLIENT_ID_TEST}")
 	private String googleClientId;
+  
 	public static void main(String[] args) {
 //		can't use environ or googleClientId here because it's static
 		SpringApplication.run(SpringOauth2DemoApplication.class, args);
