@@ -1,11 +1,16 @@
 package com.telusko.springoauth2demo;
 
 import jakarta.annotation.PostConstruct;
+
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
@@ -31,9 +36,22 @@ public class SpringOauth2DemoApplication {
     SpringApplication.run(SpringOauth2DemoApplication.class, args);
   }
 
+  // could also use ApplicationRunner. This runs before runner
   @PostConstruct
   public void printGoogleClientId() {
-    System.out.println("Method 1: " + environ.getProperty("GOOGLE_CLIENT_ID_TEST"));
-    System.out.println("Method 2: " + googleClientId);
+    System.out.println("Method 1:========================================= " + environ.getProperty("GOOGLE_CLIENT_ID_TEST"));
+    System.out.println("Method 2:========================================= " + googleClientId);
+  }
+
+  // alternative to @PostConstruct. This runs after app has started
+  @Bean
+  ApplicationRunner runner() {
+    return args -> { // if you ran this app with args like myArg1=111 myArg2=222, it'll be an array
+                     // of strings ["myArg1=111", "myArg2=222"]
+      System.out.println(
+          "Method 3 in runner::::::::::::::::::::::::::::::::: " + environ.getProperty("GOOGLE_CLIENT_ID_TEST"));
+      System.out.println("Method 4 in runner::::::::::::::::::::::::::::::::: " + googleClientId);
+      System.out.println("These are args: " + Arrays.toString(args.getSourceArgs()));
+    };
   }
 }
