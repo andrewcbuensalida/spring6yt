@@ -54,4 +54,11 @@ public class SpringOauth2DemoApplication {
       System.out.println("These are args: " + Arrays.toString(args.getSourceArgs()));
     };
   }
+
+  // this runs after @PostConstruct
+  @Bean
+  String test(){
+    System.out.println("0000000000000000000000000000000000000000000000000000000000000000");
+    return "hello";
+  }
 }
