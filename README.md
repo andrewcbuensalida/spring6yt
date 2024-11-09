@@ -1,6 +1,7 @@
 # spring6yt
 https://www.youtube.com/playlist?list=PLsyeobzWxl7qbKoSgR5ub6jolI8-ocxCF
 https://lucid.app/lucidchart/5bb60b52-5ab7-4901-a2d8-84ab6df0d0e8/edit?viewport_loc=-10%2C-10%2C1707%2C871%2C0_0&invitationId=inv_5ad682a1-3010-4a58-9d15-1c4e18e92864
+https://lucid.app/lucidchart/d51a203b-4a07-488f-8d46-e60d4d7cf760/edit?viewport_loc=-10%2C-10%2C1707%2C871%2C0_0&invitationId=inv_b9ed87de-5626-48ad-80ee-889b5e36d052
 ## The front-end for this is ecom-frontend-5.
 ## Part 28 is the crud api.
 unit tests https://www.youtube.com/playlist?list=PL82C6-O4XrHcg8sNwpoDDhcxUCbFy855E
